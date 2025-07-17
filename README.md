@@ -86,7 +86,7 @@ python scripts/evaluate_pose.py \
 Validated with state-of-the-art pose-aware MLLMs and annotation tools:
 - **UniPose** ([GitHub](https://github.com/liyiheng23/UniPose)) - A unified framework for human pose estimation and reasoning
 - **ChatPose** ([GitHub](https://github.com/yfeng95/PoseGPT)) - The original pose-aware MLLM that introduced the RPE benchmark
-- **NeuralAnnot** ([GitHub](https://github.com/mks0601/NeuralAnnot_RELEASE)) - Tool used for extracting refined annotations
+- **NeuralAnnot** ([GitHub](https://github.com/mks0601/NeuralAnnot_RELEASE)) - The original annotations
 
 ## Status
 
