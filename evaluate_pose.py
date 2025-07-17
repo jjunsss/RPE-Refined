@@ -33,9 +33,8 @@ def evaluate(pred_dir: str, gt_json_path: str, smplx_npz: str, out_dir: str,
             stub = os.path.splitext(os.path.basename(record[fname_key]))[0]
 
         obj_path = os.path.join(pred_dir, f"{stub}.obj")
-        pkl_path = os.path.join(pred_dir, f"{stub}.pkl")
 
-        if not (os.path.isfile(obj_path) and os.path.isfile(pkl_path)):
+        if not (os.path.isfile(obj_path)):
             print(f"[WARNING] Missing prediction files for sample: {stub}")
             continue
 

@@ -1,37 +1,96 @@
 # Refined Annotations for the RPE Benchmark
 
-This repository provides refined and corrected ground-truth (GT) annotations for the **Reasoning-based Pose Estimation (RPE)** benchmark, which was initially proposed in *ChatPose (CVPR'24)*. Our work addresses critical technical reproducibility issues identified in the original benchmark, which hinder fair and consistent quantitative evaluations.
-
-The goal of this repository is to provide the research community with a reliable resource to enable robust, consistent, and reproducible evaluations of pose-aware Multimodal Large Language Models (MLLMs).
+This repository provides refined and corrected ground-truth (GT) annotations for the **Reasoning-based Pose Estimation (RPE)** benchmark from *ChatPose (CVPR'24)*. We address critical technical reproducibility issues that hinder fair evaluations of pose-aware MLLMs.
 
 ---
 
 ## 📍 Motivation
 
-While the RPE benchmark has become influential, we have identified critical limitations in two main categories (which will be detailed in our upcoming technical report):
+The original RPE benchmark has critical limitations:
 
-1. **Technical Reproducibility Issues**
-   - **Mismatched Indices:** The benchmark uses custom image indices that do not align with the original 3DPW dataset.
-   - **Manual Matching Required:** Researchers must manually align samples to obtain correct GT annotations, making evaluations tedious and error-prone.
+1. **Technical Issues**
+   - Mismatched image indices that don't align with 3DPW dataset
+   - Manual matching required for correct GT annotations
 
-2. **Dataset Quality Issues** *(not directly addressed in this repo)*
-   - Image redundancy
-   - Limited scenario diversity
-   - Overly simplistic scenes
-   - Ambiguous and repetitive queries
+2. **Dataset Quality Issues** *(not addressed here)*
+   - Image redundancy and limited scenario diversity
+---
+## 📁 Refined RPE Annotations
 
-## 🛠 What This Repo Provides
+```
+RPE-refined/
+├── refine_vqa_behavior_withGT.json
+├── refine_vqa_outfits_withGT.json
+├── refine_vqa_pose_withGT.json
+└── refine_vqa_shape_withGT.json
+```
 
-This repository addresses **only the technical reproducibility issues** described above:
+Each annotation entry contains:
+```json
+{
+  "id": "000000",
+  "image": "000000.png",
+  "real_image": "3DPW/imageFiles/downtown_runForBus_01/image_00326.jpg",
+  "conversations": [
+    {
+      "from": "human", 
+      "value": "<image>\nThe man is about to sit down, can you give the SMPL pose of this person?"
+    },
+    {
+      "from": "gpt",
+      "value": "Sure, it is <POSE>."
+    }
+  ],
+  "ground_truth": {
+    "joint_cam": [[x1, y1, z1], ...],           # 24 SMPL joints in camera coords
+    "fitted_joint_cam": [[x1, y1, z1], ...],    # Fitted SMPL joints
+    "joint_img": [[u1, v1], ...],               # 2D projected keypoints
+    "smpl_param": {
+      "shape": [...],                            
+      "pose": [...],                             
+      "trans": [tx, ty, tz],                     
+      "gender": "male"
+    },
+    "bbox": [x, y, width, height]
+  }
+}
+```
 
-1. **Corrected GT Annotations**  
-   We manually resolved image index mismatches and verified each sample via visual inspection. The refined JSON files are now aligned with the original 3DPW dataset and include key attributes such as `real_image`, `smpl_params`, `joint_cam`, and `fitted_joint_cam`, freeing pose-aware MLLM researchers from incorrect or labor-intensive evaluation setups.
+### Evaluation code
+```
+bash
 
-> Annotations were extracted using the [NeuralAnnot repository](https://github.com/mks0601/NeuralAnnot_RELEASE).
+# Example evaluation with ChatPose predictions
+python scripts/evaluate_pose.py \
+   --pred_dir "annot_output/chatpose-RPE-shape-bf16" \
+   --gt_json_path "RPE-refined/refine_vqa_shape_withGT.json" \
+   --smplx_npz "data/SMPLX_NEUTRAL_2020.npz" \
+   --out_dir "./chatpose-eval-bf16" \
+   --fname_key "real_image" \
+   --joint_field "fitted_joint_cam" \
+   --num_joints "22"
+```
 
-## ✅ Planned Releases
+### Parameters
+   - `--pred_dir`: Directory containing model predictions
+   - `--gt_json_path`: Path to refined ground truth annotations
+   - `--smplx_npz`: SMPLX model file
+   - `--out_dir`: Output directory for evaluation results
+   - `--fname_key`: Image filename key in annotations
+   - `--joint_field`: Joint field to evaluate (you can choice two options: fitted_joint_cam or joint_cam)
+   - `--num_joints`: Number of joints to evaluate
 
-- [ ] **Public release** of issue analysis technical report on arXiv  
-- [ ] **Open-source codebase** for pose-aware MLLM evaluation (MPJPE / PA-MPJPE / MPJRE)  
 
-Stay tuned!
+## Human Pose MLLMs & Tools
+
+Validated with state-of-the-art pose-aware MLLMs and annotation tools:
+- **UniPose** ([GitHub](https://github.com/liyiheng23/UniPose)) - A unified framework for human pose estimation and reasoning
+- **ChatPose** ([GitHub](https://github.com/yfeng95/PoseGPT)) - The original pose-aware MLLM that introduced the RPE benchmark
+- **NeuralAnnot** ([GitHub](https://github.com/mks0601/NeuralAnnot_RELEASE)) - Tool used for extracting refined annotations
+
+## Status
+
+- [x] **Refined annotations** publicly available
+- [x] **Evaluation code** provided above
+- [ ] **Technical report** on arXiv (coming soon)
+

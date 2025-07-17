@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": "${command:pickArgs}"
+        },
+        {
+            "name": "ChatPose: RPE MPJPE Evaluation",
+            "type": "debugpy", // VS Code Python 디버거
+            "request": "launch",
+            "program": "${workspaceFolder}/_RPE_MPJPE_ChatPose.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--pred_dir",
+                "annot_output/chatpose-RPE-outfits", // 예측 OBJ 폴더
+                "--gt_json",
+                "RPE-refined/refine_chatpose_vqa_outfits_withGT.json",
+                "--smplx_npz",
+                "data/SMPLX_NEUTRAL_2020.npz",
+                "--fname_key",
+                "real_image", // OBJ 이름 규칙
+                "--joint_field",
+                "fitted_joint_cam", // GT 필드
+                "--num_joint",
+                "24" // 평가 관절 수
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            }
+        },
+        {
+            "name": "Evaluate 3D Pose",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/evaluate_pose.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--pred_dir", "annot_output/chatpose-RPE-shape-bf16",
+                "--gt_json_path", "RPE-refined/refine_vqa_shape_withGT.json",
+                // "--pred_dir", "annot_output_unipose/RPE-outfits-fittedquery",
+                "--smplx_npz", "data/SMPLX_NEUTRAL_2020.npz",
+                "--out_dir", "./chatpose-eval-bf16",
+                "--fname_key", "real_image",
+                "--joint_field", "fitted_joint_cam",
+                "--num_joints", "22"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            }
+        }
+    ]
+}

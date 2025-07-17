@@ -206,9 +206,17 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-*.obj
+# *.obj
 *.pkl
 *.png
 *.jpg
-*.json
+# *.json
 *.npz
+
+evaluation_results/
+evaluation_results_*/
+# annot_output/
+annot_output_*/
+refining_anns/*
+refining_anns/Add_info.py
+unipose-eval
