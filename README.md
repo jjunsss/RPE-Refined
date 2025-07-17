@@ -25,7 +25,7 @@ RPE-refined/
 └── refine_vqa_shape_withGT.json
 ```
 
-Each annotation entry contains:
+Each annotation entry contains the following structure:
 ```json
 {
   "id": "000000",
@@ -33,7 +33,7 @@ Each annotation entry contains:
   "real_image": "3DPW/imageFiles/downtown_runForBus_01/image_00326.jpg",
   "conversations": [
     {
-      "from": "human", 
+      "from": "human",
       "value": "<image>\nThe man is about to sit down, can you give the SMPL pose of this person?"
     },
     {
@@ -42,13 +42,13 @@ Each annotation entry contains:
     }
   ],
   "ground_truth": {
-    "joint_cam": [[x1, y1, z1], ...],           # 24 SMPL joints in camera coords
-    "fitted_joint_cam": [[x1, y1, z1], ...],    # Fitted SMPL joints
-    "joint_img": [[u1, v1], ...],               # 2D projected keypoints
+    "joint_cam": [[x1, y1, z1], ...],           // 24 SMPL joints in camera coords
+    "fitted_joint_cam": [[x1, y1, z1], ...],    // Fitted SMPL joints
+    "joint_img": [[u1, v1], ...],               // 2D projected keypoints
     "smpl_param": {
-      "shape": [...],                            
-      "pose": [...],                             
-      "trans": [tx, ty, tz],                     
+      "shape": [...],                            // Shape parameters (10D)
+      "pose": [...],                             // Pose parameters (72D => 24 joints * 3D rotation)
+      "trans": [tx, ty, tz],                     // Translation
       "gender": "male"
     },
     "bbox": [x, y, width, height]
