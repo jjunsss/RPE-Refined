@@ -26,7 +26,7 @@ RPE-refined/
 ```
 
 Each annotation entry contains the following structure:
-```json
+```jsonc
 {
   "id": "000000",
   "image": "000000.png",
