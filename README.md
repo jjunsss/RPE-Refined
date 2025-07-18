@@ -1,4 +1,4 @@
-# Refined Annotations for the RPE Benchmark
+# Refined Annotations for the RPE Benchmark [![Paper  arXiv](https://img.shields.io/badge/Paper-arXiv-EB5424?style=flat&labelColor=555555)](https://arxiv.org/abs/2507.13314)
 
 This repository provides refined and corrected ground-truth (GT) annotations for the **Reasoning-based Pose Estimation (RPE)** benchmark from *ChatPose (CVPR'24)*. We address critical technical reproducibility issues that hinder fair evaluations of pose-aware MLLMs.
 
@@ -92,5 +92,5 @@ Validated with state-of-the-art pose-aware MLLMs and annotation tools:
 
 - [x] **Refined annotations** publicly available
 - [x] **Evaluation code** provided above
-- [ ] **Technical report** on arXiv (coming soon)
+- [x] **Technical report** on arXiv
 
