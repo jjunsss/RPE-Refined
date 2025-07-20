@@ -61,7 +61,7 @@ Each annotation entry contains the following structure:
 bash
 
 # Example evaluation with ChatPose predictions
-python scripts/evaluate_pose.py \
+python evaluate_pose.py \
    --pred_dir "annot_output/chatpose-RPE-shape-bf16" \
    --gt_json_path "RPE-refined/refine_vqa_shape_withGT.json" \
    --smplx_npz "data/SMPLX_NEUTRAL_2020.npz" \
