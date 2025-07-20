@@ -94,3 +94,19 @@ Validated with state-of-the-art pose-aware MLLMs and annotation tools:
 - [x] **Evaluation code** provided above
 - [x] **Technical report** on arXiv
 
+## Citation
+
+If you use this project for research, please cite:
+
+```bibtex
+@misc{kim2025revisitingreliabilityreasoningbasedpose,
+      title={Revisiting Reliability in the Reasoning-based Pose Estimation Benchmark}, 
+      author={Junsu Kim and Naeun Kim and Jaeho Lee and Incheol Park and Dongyoon Han and Seungryul Baek},
+      year={2025},
+      eprint={2507.13314},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2507.13314}, 
+}
+
+
